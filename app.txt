@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Input Application</title>
+</head>
+<body>
+    <h1>Cool Input Form</h1>
+    <form action="#" method="post">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username"><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email"><br><br>
+
+        <label for="comments">Comments:</label><br>
+        <textarea id="comments" name="comments"></textarea><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <h2>Submitted Data:</h2>
+    <div id="output"></div>
+
+    <script>
+        document.querySelector("form").onsubmit = function(e) {
+            e.preventDefault();
+
+            // Directly insert the user input as HTML into the div, allowing the XSS payload to execute
+            const output = `
+                <p>Username: ${document.getElementById("username").value}</p>
+                <p>Email: ${document.getElementById("email").value}</p>
+                <p>Comments: ${document.getElementById("comments").value}</p>
+            `;
+
+            document.getElementById("output").innerHTML = output;
+        }
+    </script>
+</body>
+</html>
